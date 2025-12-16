@@ -1,18 +1,19 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+local opt = vim.opt
 
-vim.opt.backspace = '2'
-vim.opt.showcmd = true
-vim.opt.laststatus = 2
-vim.opt.autowrite = true
-vim.opt.cursorline = true
-vim.opt.autoread = true
+-- Line Numbers
+opt.relativenumber = true
+opt.number = true
 
--- use spaces for tabs and whatnot
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.shiftround = true
-vim.opt.expandtab = true
+-- Tabs & Indentation
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.autoindent = true
+opt.shiftround = true
+vim.bo.softtabstop = 2
+--
+-- Cursor Line
+opt.cursorline = true
 
 vim.cmd [[ set noswapfile ]]
 vim.cmd [[ set termguicolors ]]
@@ -27,6 +28,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
---Line numbers
-vim.wo.number = true
