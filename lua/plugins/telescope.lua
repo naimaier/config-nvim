@@ -1,0 +1,37 @@
+-- Fuzzy finder
+return {
+  -- https://github.com/nvim-telescope/telescope.nvim
+  'nvim-telescope/telescope.nvim',
+  dependencies = {
+    -- https://github.com/nvim-lua/plenary.nvim
+    'nvim-lua/plenary.nvim',
+    {
+      -- https://github.com/nvim-telescope/telescope-fzf-native.nvim
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
+      cond = function()
+        return vim.fn.executable 'make' == 1
+      end,
+    },
+    'nvim-tree/nvim-web-devicons'
+  },
+  opts = {
+    defaults = {
+      layout_config = {
+        vertical = {
+          width = 0.75
+        }
+      },
+      path_display = {
+        filename_first = {
+          reverse_directories = true
+        }
+      },
+    },
+    file_ignore_patterns = { "node%_modules/.*" },
+  },
+  config = function ()
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+  end
+}

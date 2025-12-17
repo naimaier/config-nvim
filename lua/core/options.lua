@@ -11,7 +11,7 @@ opt.expandtab = true
 opt.autoindent = true
 opt.shiftround = true
 vim.bo.softtabstop = 2
---
+
 -- Cursor Line
 opt.cursorline = true
 
