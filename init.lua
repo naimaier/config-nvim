@@ -12,8 +12,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Set leader before initializing lazy
-require("core.options")
-require("core.keymaps")
+local g = vim.g
+g.mapleader = ' '
+g.maplocalleader = ' '
 
 -- Initialize lazy with dynamic loading of anything in the plugins directory
 require("lazy").setup("plugins", {
@@ -22,3 +23,6 @@ require("lazy").setup("plugins", {
     notify = false, -- turn off notifications whenever plugin changes are made
   },
 })
+
+require("core.options")
+require("core.keymaps")
