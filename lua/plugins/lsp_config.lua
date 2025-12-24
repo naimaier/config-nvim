@@ -85,6 +85,10 @@ return {
       },
     })
 
+    vim.lsp.config('html', {
+        filetypes = { "html", "xhtml" }, -- Ensure 'xhtml' filetype is included
+    })
+
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -98,7 +102,6 @@ return {
 
 
 -- require'lspconfig'.bashls.setup{}
--- require'lspconfig'.html.setup{}
 -- require("lspconfig").ts_ls.setup({})
 -- require("lspconfig").gopls.setup({})
 -- require'lspconfig'.dockerls.setup{}
