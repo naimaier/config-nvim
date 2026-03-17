@@ -58,8 +58,9 @@ return {
     require('mason-tool-installer').setup({
       -- Install these linters, formatters, debuggers automatically
       ensure_installed = {
-        'java-debug-adapter',
-        'java-test',
+-- THESE tolls where breaking the LSP auto completion
+--        'java-debug-adapter',
+--        'java-test',
       },
     })
 
