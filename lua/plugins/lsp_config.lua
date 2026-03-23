@@ -47,6 +47,7 @@ return {
         'vuels',
         'yamlls',
       },
+      automatic_installation = true,
       automatic_enable = {
         exclude = {
           -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
@@ -69,7 +70,7 @@ return {
     vim.api.nvim_command('MasonToolsInstall')
 
     -- Lua LSP settings
-    vim.lsp.config('lua_ls', {
+    require'lspconfig'.lua_ls.setup({
       settings = {
         Lua = {
           diagnostics = {
@@ -86,20 +87,34 @@ return {
       },
     })
 
-    vim.lsp.config('html', {
-        filetypes = { "html", "xhtml" }, -- Ensure 'xhtml' filetype is included
+    require'lspconfig'.jdtls.setup({})
+    require'lspconfig'.lemminx.setup({
+        filetypes = { "xml", "xsd", "xhtml" }
+    })
+    require'lspconfig'.html.setup({
+        filetypes = { "html", "xhtml" } -- Ensure 'xhtml' filetype is included
     })
 
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
+    --[[
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
       opts = opts or {}
       opts.border = opts.border or "rounded" -- Set border to rounded
       return open_floating_preview(contents, syntax, opts, ...)
-    end
+    end]]
 
+    vim.diagnostic.config({
+      virtual_text = false,
+      float = {
+        border = "rounded",
+        source = true,
+      },
+    })
+    vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
   end
 }
+
 
 
 -- require'lspconfig'.bashls.setup{}

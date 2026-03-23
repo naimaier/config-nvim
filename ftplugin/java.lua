@@ -5,6 +5,9 @@ local jdtls = require("jdtls")
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = home .. "/Workspace/" .. project_name
 
+local java_21_path = home .. "/.sdkman/candidates/java/21.0.10-tem/"
+local java_21_executable = java_21_path .. "bin/java"
+
 local system_os = ""
 
 -- Determine OS
@@ -33,7 +36,7 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
     --"java",
-    home .. "/.sdkman/candidates/java/21.0.2-graalce/bin/java",
+    java_21_executable, -- Run java in the correct version
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -63,7 +66,7 @@ local config = {
   settings = {
     java = {
       -- TODO Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
-      home = home .. "/.sdkman/candidates/java/21.0.2-graalce/",
+      home = java_21_path,
       eclipse = {
         downloadSources = true,
       },
@@ -78,7 +81,7 @@ local config = {
           },
           {
             name = "JavaSE-21",
-            path = home .. "/.sdkman/candidates/java/21.0.2-graalce",
+            path = java_21_path,
           },
         },
       },
@@ -147,10 +150,11 @@ local config = {
 }
 
 -- Needed for debugging
-config["on_attach"] = function(client, bufnr)
-  jdtls.setup_dap({ hotcodereplace = "auto" })
-  require("jdtls.dap").setup_dap_main_class_configs()
-end
+-- ERROR, it was being called before LSP attaches
+--config["on_attach"] = function(client, bufnr)
+--  jdtls.setup_dap({ hotcodereplace = "auto" })
+--  require("jdtls.dap").setup_dap_main_class_configs()
+--end
 
 -- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
-jdtls.start_or_attach(config)
+--jdtls.start_or_attach(config)
