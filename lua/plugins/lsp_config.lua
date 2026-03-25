@@ -13,7 +13,7 @@ return {
 
     -- Auto-Install LSPs, linters, formatters, debuggers
     -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
-    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+--    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
     -- Useful status updates for LSP
     -- https://github.com/j-hui/fidget.nvim
@@ -52,22 +52,19 @@ return {
         exclude = {
           -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
           'jdtls',
+          'lemminx',
+          'html'
         }
       }
     })
 
-    require('mason-tool-installer').setup({
-      -- Install these linters, formatters, debuggers automatically
-      ensure_installed = {
--- THESE tolls where breaking the LSP auto completion
---        'java-debug-adapter',
---        'java-test',
-      },
+    require'lspconfig'.jdtls.setup({})
+    require'lspconfig'.lemminx.setup({
+        filetypes = { "xml", "xsd", "xhtml" }
     })
-
-    -- There is an issue with mason-tools-installer running with VeryLazy, since it triggers on VimEnter which has already occurred prior to this plugin loading so we need to call install explicitly
-    -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim/issues/39
-    vim.api.nvim_command('MasonToolsInstall')
+    require'lspconfig'.html.setup({
+        filetypes = { "html", "xhtml" } -- Ensure 'xhtml' filetype is included
+    })
 
     -- Lua LSP settings
     require'lspconfig'.lua_ls.setup({
@@ -87,13 +84,19 @@ return {
       },
     })
 
-    require'lspconfig'.jdtls.setup({})
-    require'lspconfig'.lemminx.setup({
-        filetypes = { "xml", "xsd", "xhtml" }
+--[[ THESE tolls were breaking the LSP auto completion
+    require('mason-tool-installer').setup({
+      -- Install these linters, formatters, debuggers automatically
+      ensure_installed = {
+        'java-debug-adapter',
+        'java-test',
+      },
     })
-    require'lspconfig'.html.setup({
-        filetypes = { "html", "xhtml" } -- Ensure 'xhtml' filetype is included
-    })
+]]
+
+    -- There is an issue with mason-tools-installer running with VeryLazy, since it triggers on VimEnter which has already occurred prior to this plugin loading so we need to call install explicitly
+    -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim/issues/39
+--    vim.api.nvim_command('MasonToolsInstall')
 
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
     --[[
