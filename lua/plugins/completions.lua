@@ -27,6 +27,8 @@ return {
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
+
+    luasnip.filetype_extend("xhtml", {"html", "xml"}) -- treat xhtml as html
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
 
