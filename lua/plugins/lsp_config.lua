@@ -39,6 +39,7 @@ return {
         'lua_ls',
         'jdtls',
         'jsonls',
+        'emmet_ls',
         'lemminx',
         'marksman',
         'pylsp',
@@ -53,6 +54,7 @@ return {
           -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
           'jdtls',
           'lemminx',
+          'emmet_ls',
           'html'
         }
       }
@@ -64,6 +66,22 @@ return {
     })
     require'lspconfig'.html.setup({
         filetypes = { "html", "xhtml" } -- Ensure 'xhtml' filetype is included
+    })
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    require'lspconfig'.emmet_ls.setup({
+        capabilities = capabilities,
+        filetypes = { "css", "eruby", "html", "xhtml", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "typescriptreact", "vue" },
+        init_options = {
+            html = {
+                options = {
+                    -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                    ["bem.enabled"] = true,
+                },
+            },
+        }
     })
 
     -- Lua LSP settings
