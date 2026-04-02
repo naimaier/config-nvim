@@ -60,6 +60,7 @@ return {
                 local luasnip = require('luasnip')
 
                 require('luasnip.loaders.from_vscode').lazy_load()
+                require('luasnip.loaders.from_vscode').lazy_load({ paths = { "~/.config/nvim/my-snippets" } })
                 luasnip.filetype_extend("xhtml", {"html", "xml"}) -- treat xhtml as html
                 --luasnip.config.setup({})
 
