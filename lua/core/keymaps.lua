@@ -1,6 +1,7 @@
 local keymap = vim.keymap
 
 keymap.set('n', '<leader>pv', vim.cmd.Ex)
+-- keymap.set('i', 'jj', '<ESC>', { silent = true })
 
 -- Telescope
 local builtin = require('telescope.builtin')
