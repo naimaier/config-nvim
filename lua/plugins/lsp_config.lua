@@ -60,18 +60,18 @@ return {
       }
     })
 
-    require'lspconfig'.jdtls.setup({})
-    require'lspconfig'.lemminx.setup({
+    vim.lsp.config('jdtls', {})
+    vim.lsp.config('lemminx', {
         filetypes = { "xml", "xsd", "xhtml" }
     })
-    require'lspconfig'.html.setup({
+    vim.lsp.config('html', {
         filetypes = { "html", "xhtml" } -- Ensure 'xhtml' filetype is included
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    require'lspconfig'.emmet_ls.setup({
+    vim.lsp.config('emmet_ls', {
         capabilities = capabilities,
         -- filetypes = { "css", "eruby", "html", "xhtml", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "typescriptreact", "vue" },
         filetypes = { "html", "xhtml", "vue" },
@@ -86,7 +86,7 @@ return {
     })
 
     -- Lua LSP settings
-    require'lspconfig'.lua_ls.setup({
+    vim.lsp.config('lua_ls', {
       settings = {
         Lua = {
           diagnostics = {
